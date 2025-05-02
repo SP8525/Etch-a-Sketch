@@ -1,28 +1,41 @@
-// Take the container from HTML //
-gridSide =10;
-
+let gridSide = 16;
 const container = document.getElementById("container");
-console.log(container);
 
 function drawBox() {
-    const box = document.createElement("div");
-    box.classList.add("box");
-    box.style.flex = `0 0 ${100 / gridSide}%`;
-    box.style.aspectRatio = "1 / 1";
-    container.appendChild(box);
+  const box = document.createElement("div");
+  box.classList.add("box");
+  box.style.flex = `0 0 ${100 / gridSide}%`;
+  // keep square
+  box.style.aspectRatio = "1 / 1";
+  container.appendChild(box);
 }
 
 function drawGrid() {
-    container.replaceChildren();
-    for (i = 0; i < gridSide * gridSide; i ++) {
+  container.replaceChildren();
+
+  for (let i = 0; i < gridSide * gridSide; i++) {
     drawBox();
-    }
+  }
 }
 
 drawGrid();
 
-document.querySelectorAll(".box").forEach(boxEl => {
-    boxEl.addEventListener("mouseover", () => {
-        boxEl.style.backgroundColor = "red";
-    });
+container.addEventListener("mouseover", e => {
+  if (e.target.classList.contains("box")) {
+    e.target.style.backgroundColor = "lightpink";
+  }
+});
+
+const sizeButton = document.getElementById("query-size-button");
+sizeButton.addEventListener("click", () => {
+  const input = prompt("Enter grid size (1–100):", gridSide);
+  if (input === null) return;           // user canceled
+
+  const n = Number(input);
+  if (Number.isInteger(n) && n >= 1 && n <= 100) {
+    gridSide = n;
+    drawGrid();
+  } else {
+    alert("Please enter a whole number from 1 to 100.");
+  }
 });
