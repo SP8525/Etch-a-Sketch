@@ -20,9 +20,9 @@ function drawGrid() {
 
 drawGrid();
 
-container.addEventListener("mouseover", e => {
-  if (e.target.classList.contains("box")) {
-    e.target.style.backgroundColor = "lightpink";
+container.addEventListener("mouseover", element => {
+  if (element.target.classList.contains("box")) {
+    element.target.style.backgroundColor = "lightpink";
   }
 });
 
